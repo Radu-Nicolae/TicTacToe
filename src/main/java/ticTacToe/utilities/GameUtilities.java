@@ -81,25 +81,72 @@ public class GameUtilities {
 
         return cpuInput;
 
-//        List<Integer> corners = new ArrayList<Integer>();
-//        corners.add(1);
-//        corners.add(3);
-//        corners.add(7);
-//        corners.add(9);
-//
-//        if (playerInputs.size() == 1){
-//            if (playerInputs.get(0) !=  5){
-//                cpuInput = 5;
-//            }
-//            else {
-//                cpuInput = corners.get(rnd.nextInt(4) + 1);
-//            }
-//        }
-
 
     }
 
-    
+    public static int hardMode(boolean isInputInvalid, List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
+        int cpuInput;
+        isInputInvalid = true;
+
+        List<Integer> corners = new ArrayList<Integer>();
+        corners.add(1);
+        corners.add(3);
+        corners.add(7);
+        corners.add(9);
+
+
+        cpuInput = remainingInput(playerInputs, board);
+        isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
+
+
+        if (playerInputs.size() == 1) {
+            if (playerInputs.get(0) != 5) {
+                cpuInput = 5;
+                cpuInputs.add(cpuInput);
+                board = Board.boardReplace(board, playerSymbol, cpuInput);
+            } else {
+                cpuInput = corners.get(rnd.nextInt(4) + 1);
+            }
+        } else if (isInputAvailable) {
+            cpuInputs.add(cpuInput);
+        } else if (remainingInput(cpuInputs,board) != 0){ //ToDo watch this carrefully!
+            int i = 0;
+            do {
+//                cpuInput = rnd.nextInt(9) + 1;
+                cpuInput = remainingInput(cpuInputs,board);
+                isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
+
+                if (isInputAvailable) {
+                    isInputInvalid = false;
+                    cpuInputs.add(cpuInput);
+                    board = Board.boardReplace(board, playerSymbol, cpuInput);
+                }
+
+                i++;
+                if (i == 10){
+                    break;
+                }
+            }
+            while (isInputInvalid);
+        }
+        else {
+            do {
+                cpuInput = rnd.nextInt(9) + 1;
+                isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
+
+                if (isInputAvailable) {
+                    isInputInvalid = false;
+                    cpuInputs.add(cpuInput);
+                    board = Board.boardReplace(board, playerSymbol, cpuInput);
+                }
+            }
+            while (isInputInvalid);
+        }
+
+
+        return cpuInput;
+
+    }
 
 
     public static int remainingInput(List<Integer> playerInputs, char[][] board) {

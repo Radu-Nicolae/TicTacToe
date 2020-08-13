@@ -128,6 +128,11 @@ public class GameComputer {
                             Board.printBoard(board);
                             break;
                         case 3:
+                            cpuInput = GameUtilities.hardMode(isInputInvalid, playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
+                            board = Board.boardReplace(board, playerSymbol, cpuInput);
+                            System.out.print("\nCPU's turn: " + cpuInput + "\n");
+                            Board.printBoard(board);
+                            break;
                     }
 
                 }
