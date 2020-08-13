@@ -9,20 +9,50 @@ public class GameComputer {
     static Scanner scn = new Scanner(System.in);
     static Random rnd = new Random();
 
-    public static void playWithCPU(){
+    public static void playWithCPU() {
         boolean isInputInvalid = true;
         boolean playerStartsFirst;
         boolean isGameNotOver = true;
         String input;
+        String toBeConvertedInputDifficulty;
+        int inputDifficulty;
         List<Boolean> booleans;
 
         Messages.computerChoice();
+
+        Messages.chooseDificulty();
+        System.out.print("\nYour answer: ");
+        do {
+            toBeConvertedInputDifficulty = scn.next();
+            if (toBeConvertedInputDifficulty.equalsIgnoreCase("1") || toBeConvertedInputDifficulty.equalsIgnoreCase("2")
+                    || toBeConvertedInputDifficulty.equalsIgnoreCase("3")) {
+                isInputInvalid = false;
+            } else {
+                System.out.print("\nPlease enter a valid input!");
+            }
+        }
+        while (isInputInvalid);
+        inputDifficulty = Integer.parseInt(toBeConvertedInputDifficulty);
+
+        switch (inputDifficulty){
+            case 1:
+                System.out.println("\nYou have chosen easy mode!");
+                break;
+            case 2:
+                System.out.println("\nYou have chosen medium mode!");
+                break;
+            case 3:
+                System.out.println("\nYou have chosen hard mode!");
+                break;
+        }
+
+        isInputInvalid = true;
 
         System.out.println("\n");
         Board.printBoard(Board.getBoardWithNumbers());
         System.out.println("During the game you will select numbers from 1 to 9 as shown above");
 
-        System.out.println("\n Select who starts: ");
+        System.out.println("\nSelect who starts: ");
         System.out.println("1. You");
         System.out.println("2. Computer");
 
@@ -30,11 +60,10 @@ public class GameComputer {
 
         do {
             input = scn.nextLine();
-            if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("2")){
+            if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("2")) {
                 isInputInvalid = false;
-            }
-            else {
-                System.out.print("Please enter a valid input: ");
+            } else {
+                System.out.print("\nPlease enter a valid input: ");
             }
         }
         while (isInputInvalid);
@@ -50,68 +79,103 @@ public class GameComputer {
 
         char[][] board = Board.getBoard();
         boolean isInputAvailable = false;
+        boolean playAgain;
         char playerSymbol;
 
         do {
-            isInputInvalid = true;
+            do {
+                isInputInvalid = true;
 
-            if (playerStartsFirst){
-                System.out.print("\nYour turn: ");
-                playerSymbol = 'X';
-            }
-            else {
-                playerSymbol = '0';
-            }
+                if (playerStartsFirst) {
+                    System.out.print("\nYour turn: ");
+                    playerSymbol = 'X';
+                } else {
+                    playerSymbol = '0';
+                }
 
-            if (playerStartsFirst){
-                do {
-                    if (playerStartsFirst) {
-                        playerInput = scn.nextInt();
-                        isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, playerInput);
+                if (playerStartsFirst) {
+                    do {
+                        if (playerStartsFirst) {
+                            playerInput = scn.nextInt();
+                            isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, playerInput);
 
-                        if (isInputAvailable) {
-                            isInputInvalid = false;
-                            playerInputs.add(playerInput);
-                            board = Board.boardReplace(board, playerSymbol, playerInput);
-                        } else {
-                            System.out.print("Please enter a valid input: ");
+                            if (isInputAvailable) {
+                                isInputInvalid = false;
+                                playerInputs.add(playerInput);
+                                board = Board.boardReplace(board, playerSymbol, playerInput);
+                            } else {
+                                System.out.print("Please enter a valid input: ");
+                            }
                         }
+
+                    }
+                    while (isInputInvalid);
+                    isInputInvalid = true;
+                    Board.printBoard(board);
+
+                } else {
+                    switch (inputDifficulty) {
+                        case 1:
+                            cpuInput = GameUtilities.easyMode(isInputInvalid, playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
+                            board = Board.boardReplace(board, playerSymbol, cpuInput);
+                            System.out.print("\nCPU's turn: " + cpuInput + "\n");
+                            Board.printBoard(board);
+                            break;
+                        case 2:
+                            cpuInput = GameUtilities.mediumMode(isInputInvalid, playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
+                            board = Board.boardReplace(board, playerSymbol, cpuInput);
+                            System.out.print("\nCPU's turn: " + cpuInput + "\n");
+                            Board.printBoard(board);
+                            break;
+                        case 3:
                     }
 
                 }
-                while (isInputInvalid);
-                isInputInvalid = true;
-                Board.printBoard(board);
+
+                playerStartsFirst = !playerStartsFirst;
+                booleans = GameUtilities.isGameOver(playerInputs, cpuInputs);
+
+                if (booleans.get(0)) { //if gameOver == true
+                    if (booleans.get(1)) { //if didPlayerWon == true
+                        System.out.println("Congrads! You won!");
+                        isGameNotOver = false;
+                    } else if (booleans.get(2)) { //if didCpuWon == true
+                        System.out.println("CPU won :(");
+                        isGameNotOver = false;
+                    } else { //if it's a draw
+                        System.out.println("It's a draw!");
+                        isGameNotOver = false;
+                    }
+                }
 
             }
-            else {
-                cpuInput = GameUtilities.easyMode(isInputInvalid,playerInputs,cpuInputs,board,isInputAvailable,playerSymbol);
-                board = Board.boardReplace(board, playerSymbol, cpuInput);
-                System.out.print("\nCPU's turn: " + cpuInput + "\n");
-                Board.printBoard(board);
-            }
+            while (isGameNotOver);
 
-            playerStartsFirst = !playerStartsFirst;
-            booleans = GameUtilities.isGameOver(playerInputs, cpuInputs);
+            isInputInvalid = true;
+            System.out.println("\nPlay again?");
+            System.out.print("Your answer: ");
 
-            if (booleans.get(0)){ //if gameOver == true
-                if (booleans.get(1)){ //if didPlayerWon == true
-                    System.out.println("Congrads! You won!");
-                    isGameNotOver = false;
-                }
-                else if (booleans.get(2)){ //if didCpuWon == true
-                    System.out.println("CPU won :(");
-                    isGameNotOver = false;
-                }
-                else { //if it's a draw
-                    System.out.println("It's a draw!");
-                    isGameNotOver = false;
+            do {
+                input = scn.next();
+                if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
+                    isInputInvalid = false;
+                } else {
+                    System.out.print("Please enter a valid input: ");
                 }
             }
+            while (isInputInvalid);
+            if (input.equalsIgnoreCase("yes")) {
+                playAgain = true;
+            } else {
+                playAgain = false;
+            }
 
+            board = Board.getBoard();
+            cpuInputs.clear();
+            playerInputs.clear();
+            isGameNotOver = true;
         }
-        while (isGameNotOver);
-
+        while (playAgain);
 
 
     }

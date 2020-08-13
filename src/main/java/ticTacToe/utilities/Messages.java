@@ -14,4 +14,11 @@ public class Messages {
         System.out.println("---------------------------------");
     }
 
+    public static void chooseDificulty(){
+        System.out.println("Choose game difficulty:");
+        System.out.println("1. Easy");
+        System.out.println("2. Medium");
+        System.out.println("3. Hard");
+    }
+
 }
