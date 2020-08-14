@@ -8,10 +8,22 @@ public class Messages {
         System.out.println("=============================");
     }
 
+    public static void againstWho(){
+        System.out.println("\nAgainst who do you want to play?");
+        System.out.println("1. Your friend");
+        System.out.println("2. Computer");
+    }
+
     public static void computerChoice(){
         System.out.println("\n---------------------------------------");
         System.out.println("|  You have chosen to play with CPU!  |");
         System.out.println("---------------------------------------");
+    }
+
+    public static void playersChoice(){
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("|  You have chosen to play with your friend!  |");
+        System.out.println("-----------------------------------------------");
     }
 
     public static void chooseDificulty(){

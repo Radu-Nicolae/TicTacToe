@@ -3,7 +3,7 @@ package ticTacToe.utilities;
 public class Board {
 
     /*
-            | x |
+            | X |
          ---+---+---
             |   |
          ---+---+---

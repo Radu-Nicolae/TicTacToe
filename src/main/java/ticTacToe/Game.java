@@ -1,15 +1,35 @@
 package ticTacToe;
 
 import ticTacToe.utilities.Messages;
-import ticTacToe.utilities.Players;
 
-import java.util.List;
+import java.util.Scanner;
 
 public class Game {
 
-    public static void Game(){
-        Messages.welcomeMessage();
+    static Scanner scn = new Scanner(System.in);
 
-        GameComputer.playWithCPU();
+    public static void Game() {
+        String input;
+        boolean isInputIncorrect = true;
+
+        Messages.welcomeMessage();
+        Messages.againstWho();
+        System.out.print("Your answer: ");
+
+        do {
+            input = scn.next();
+            if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("2")) {
+                isInputIncorrect = false;
+            } else {
+                System.out.print("Please enter a valid input: ");
+            }
+        }
+        while (isInputIncorrect);
+
+        if (input.equalsIgnoreCase("1")) {
+            GameTwoPlayers.playWithFriend();
+        } else {
+            GameComputer.playWithCPU();
+        }
     }
 }
