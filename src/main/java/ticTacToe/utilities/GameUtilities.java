@@ -109,11 +109,11 @@ public class GameUtilities {
             }
         } else if (isInputAvailable) {
             cpuInputs.add(cpuInput);
-        } else if (remainingInput(cpuInputs,board) != 0){ //ToDo watch this carrefully!
+        } else if (remainingInput(cpuInputs, board) != 0) { //ToDo watch this carrefully!
             int i = 0;
             do {
 //                cpuInput = rnd.nextInt(9) + 1;
-                cpuInput = remainingInput(cpuInputs,board);
+                cpuInput = remainingInput(cpuInputs, board);
                 isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
 
                 if (isInputAvailable) {
@@ -123,13 +123,22 @@ public class GameUtilities {
                 }
 
                 i++;
-                if (i == 10){
+                if (i == 10) {
                     break;
                 }
             }
             while (isInputInvalid);
-        }
-        else {
+        } else if (cpuInput == 0) {
+            isInputInvalid = true;
+            do {
+                cpuInput = rnd.nextInt(9);
+                cpuInput++;
+                if (!cpuInputs.contains(cpuInput)) {
+                    isInputInvalid = false;
+                }
+            }
+            while (isInputInvalid);
+        } else {
             do {
                 cpuInput = rnd.nextInt(9) + 1;
                 isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
@@ -184,129 +193,131 @@ public class GameUtilities {
                     cpuInput = 4;
                 }
             }
+        }
 
-            if (playerInputs.contains(2)) {
-                if (playerInputs.contains(3)) {
-                    if (board[0][1] == ' ') {
-                        cpuInput = 1;
-                    }
-                }
-                if (playerInputs.contains(5)) {
-                    if (board[4][5] == ' ') {
-                        cpuInput = 8;
-                    }
-                }
-                if (playerInputs.contains(8)) {
-                    if (board[2][5] == ' ') {
-                        cpuInput = 5;
-                    }
+        if (playerInputs.contains(2)) {
+            if (playerInputs.contains(3)) {
+                if (board[0][1] == ' ') {
+                    cpuInput = 1;
                 }
             }
+            if (playerInputs.contains(5)) {
+                if (board[4][5] == ' ') {
+                    cpuInput = 8;
+                }
+            }
+            if (playerInputs.contains(8)) {
+                if (board[2][5] == ' ') {
+                    cpuInput = 5;
+                }
+            }
+        }
 
-            if (playerInputs.contains(3)) {
-                if (playerInputs.contains(5)) {
-                    if (board[4][1] == ' ') {
-                        cpuInput = 7;
-                    }
+        if (playerInputs.contains(3)) {
+            if (playerInputs.contains(5)) {
+                if (board[4][1] == ' ') {
+                    cpuInput = 7;
                 }
-                if (playerInputs.contains(7)) {
-                    if (board[2][5] == ' ') {
-                        cpuInput = 5;
-                    }
+            }
+            if (playerInputs.contains(7)) {
+                if (board[2][5] == ' ') {
+                    cpuInput = 5;
                 }
-                if (playerInputs.contains(6)) {
-                    if (board[4][9] == ' ') {
-                        cpuInput = 9;
-                    }
+            }
+            if (playerInputs.contains(6)) {
+                if (board[4][9] == ' ') {
+                    cpuInput = 9;
                 }
-                if (playerInputs.contains(9)) {
+            }
+            if (playerInputs.contains(9)) {
+                if (board[2][9] == ' ') {
+                    cpuInput = 6;
+                }
+            }
+        }
+
+        if (playerInputs.contains(4)) {
+            if (playerInputs.contains(7)) {
+                if (board[0][1] == ' ') {
+                    cpuInput = 1;
+                }
+            }
+            if (playerInputs.contains(5)) {
+                if (playerInputs.contains(4)) {
                     if (board[2][9] == ' ') {
                         cpuInput = 6;
                     }
                 }
             }
+            if (playerInputs.contains(6)) {
+                if (playerInputs.contains(4)) {
+                    if (board[2][5] == ' ') {
+                        cpuInput = 5;
+                    }
+                }
+            }
+        }
 
-            if (playerInputs.contains(4)) {
-                if (playerInputs.contains(7)) {
+        if (playerInputs.contains(5)) {
+            if (playerInputs.contains(8)) {
+                if (board[0][5] == ' ') {
+                    cpuInput = 2;
+                }
+            }
+            if (playerInputs.contains(9)) {
+                if (playerInputs.contains(5)) {
                     if (board[0][1] == ' ') {
                         cpuInput = 1;
                     }
                 }
-                if (playerInputs.contains(5)) {
-                    if (playerInputs.contains(4)) {
-                        if (board[2][9] == ' ') {
-                            cpuInput = 6;
-                        }
-                    }
-                }
-                if (playerInputs.contains(6)) {
-                    if (playerInputs.contains(4)) {
-                        if (board[2][5] == ' ') {
-                            cpuInput = 5;
-                        }
-                    }
-                }
             }
-
-            if (playerInputs.contains(5)) {
-                if (playerInputs.contains(8)) {
-                    if (board[0][5] == ' ') {
-                        cpuInput = 2;
-                    }
-                }
-                if (playerInputs.contains(9)) {
-                    if (playerInputs.contains(5)) {
-                        if (board[0][1] == ' ') {
-                            cpuInput = 1;
-                        }
-                    }
-                }
-                if (playerInputs.contains(7)) {
-                    if (playerInputs.contains(5)) {
-                        if (board[0][9] == ' ') {
-                            cpuInput = 3;
-                        }
-                    }
-                }
-                if (playerInputs.contains(6)) {
-                    if (playerInputs.contains(5)) {
-                        if (board[2][1] == ' ') {
-                            cpuInput = 4;
-                        }
-                    }
-                }
-            }
-
-            if (playerInputs.contains(6)) {
-                if (playerInputs.contains(9)) {
-                    cpuInput = 3;
-                }
-            }
-
             if (playerInputs.contains(7)) {
-                if (playerInputs.contains(8)) {
-                    if (board[4][9] == ' ') {
-                        cpuInput = 9;
-                    }
-                }
-                if (playerInputs.contains(9)) {
-                    if (board[4][5] == ' ') {
-                        cpuInput = 8;
+                if (playerInputs.contains(5)) {
+                    if (board[0][9] == ' ') {
+                        cpuInput = 3;
                     }
                 }
             }
-
-            if (playerInputs.contains(8)) {
-                if (playerInputs.contains(9)) {
-                    if (board[4][1] == ' ') {
-                        cpuInput = 7;
-                    }
+        }
+        if (playerInputs.contains(6)) {
+            if (playerInputs.contains(5)) {
+                if (board[2][1] == ' ') {
+                    cpuInput = 4;
                 }
             }
-
-
         }
 
+
+        if (playerInputs.contains(6)) {
+            if (playerInputs.contains(9)) {
+                cpuInput = 3;
+            }
+        }
+
+        if (playerInputs.contains(7)) {
+            if (playerInputs.contains(8)) {
+                if (board[4][9] == ' ') {
+                    cpuInput = 9;
+                }
+            }
+            if (playerInputs.contains(9)) {
+                if (board[4][5] == ' ') {
+                    cpuInput = 8;
+                }
+            }
+        }
+
+        if (playerInputs.contains(8)) {
+            if (playerInputs.contains(9)) {
+                if (board[4][1] == ' ') {
+                    cpuInput = 7;
+                }
+            }
+        }
+
+
+
+
         return cpuInput;
-    }
+}
 }

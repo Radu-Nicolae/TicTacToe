@@ -59,7 +59,7 @@ public class GameComputer {
         System.out.print("Your answer: ");
 
         do {
-            input = scn.nextLine();
+            input = scn.next();
             if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("2")) {
                 isInputInvalid = false;
             } else {
@@ -79,7 +79,7 @@ public class GameComputer {
 
         char[][] board = Board.getBoard();
         boolean isInputAvailable = false;
-        boolean playAgain;
+        boolean playAgain = false;
         char playerSymbol;
 
         do {
@@ -172,7 +172,54 @@ public class GameComputer {
             if (input.equalsIgnoreCase("yes")) {
                 playAgain = true;
             } else {
-                playAgain = false;
+                System.out.println("\nChange game difficulty?");
+                System.out.print("Your answer: ");
+                isInputInvalid = true;
+                do {
+                    input = scn.next();
+                    if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")){
+                        isInputInvalid = false;
+                    }
+                    else {
+                        System.out.print("\nPlease enter a valid input: ");
+                    }
+                }
+                while (isInputInvalid);
+                isInputInvalid = true;
+                
+                if (input.equalsIgnoreCase("yes")) {
+                    Messages.chooseDificulty();
+                    System.out.print("\nYour answer: ");
+                    do {
+                        toBeConvertedInputDifficulty = scn.next();
+                        if (toBeConvertedInputDifficulty.equalsIgnoreCase("1") || toBeConvertedInputDifficulty.equalsIgnoreCase("2")
+                                || toBeConvertedInputDifficulty.equalsIgnoreCase("3")) {
+                            isInputInvalid = false;
+                        } else {
+                            System.out.print("\nPlease enter a valid input!");
+                        }
+                    }
+                    while (isInputInvalid);
+                    inputDifficulty = Integer.parseInt(toBeConvertedInputDifficulty);
+
+                    switch (inputDifficulty){
+                        case 1:
+                            System.out.println("\nYou have chosen easy mode!");
+                            playAgain = true;
+                            break;
+                        case 2:
+                            System.out.println("\nYou have chosen medium mode!");
+                            playAgain = true;
+                            break;
+                        case 3:
+                            System.out.println("\nYou have chosen hard mode!");
+                            playAgain = true;
+                            break;
+                    }
+                }
+                else {
+                    playAgain = false;
+                }
             }
 
             board = Board.getBoard();
@@ -182,6 +229,8 @@ public class GameComputer {
         }
         while (playAgain);
 
+
+        Messages.goodBye();
 
     }
 }
