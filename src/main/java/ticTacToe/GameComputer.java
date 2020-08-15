@@ -34,7 +34,7 @@ public class GameComputer {
         while (isInputInvalid);
         inputDifficulty = Integer.parseInt(toBeConvertedInputDifficulty);
 
-        switch (inputDifficulty){
+        switch (inputDifficulty) {
             case 1:
                 System.out.println("\nYou have chosen easy mode!");
                 break;
@@ -68,8 +68,6 @@ public class GameComputer {
         }
         while (isInputInvalid);
 
-        isInputInvalid = true;
-        boolean isGameOver = true;
         int playerInput;
         int cpuInput;
         ArrayList<Integer> playerInputs = new ArrayList<Integer>();
@@ -83,6 +81,8 @@ public class GameComputer {
         char playerSymbol;
 
         do {
+            System.out.println("\n");
+            Board.printBoard(Board.getBoard());
             do {
                 isInputInvalid = true;
 
@@ -110,25 +110,24 @@ public class GameComputer {
 
                     }
                     while (isInputInvalid);
-                    isInputInvalid = true;
                     Board.printBoard(board);
 
                 } else {
                     switch (inputDifficulty) {
                         case 1:
-                            cpuInput = GameUtilities.easyMode(isInputInvalid, playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
+                            cpuInput = GameUtilities.easyMode(playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
                             board = Board.boardReplace(board, playerSymbol, cpuInput);
                             System.out.print("\nCPU's turn: " + cpuInput + "\n");
                             Board.printBoard(board);
                             break;
                         case 2:
-                            cpuInput = GameUtilities.mediumMode(isInputInvalid, playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
+                            cpuInput = GameUtilities.mediumMode(playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
                             board = Board.boardReplace(board, playerSymbol, cpuInput);
                             System.out.print("\nCPU's turn: " + cpuInput + "\n");
                             Board.printBoard(board);
                             break;
                         case 3:
-                            cpuInput = GameUtilities.hardMode(isInputInvalid, playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
+                            cpuInput = GameUtilities.hardMode(playerInputs, cpuInputs, board, isInputAvailable, playerSymbol);
                             board = Board.boardReplace(board, playerSymbol, cpuInput);
                             System.out.print("\nCPU's turn: " + cpuInput + "\n");
                             Board.printBoard(board);
@@ -177,16 +176,15 @@ public class GameComputer {
                 isInputInvalid = true;
                 do {
                     input = scn.next();
-                    if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")){
+                    if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
                         isInputInvalid = false;
-                    }
-                    else {
+                    } else {
                         System.out.print("\nPlease enter a valid input: ");
                     }
                 }
                 while (isInputInvalid);
                 isInputInvalid = true;
-                
+
                 if (input.equalsIgnoreCase("yes")) {
                     Messages.chooseDificulty();
                     System.out.print("\nYour answer: ");
@@ -202,7 +200,7 @@ public class GameComputer {
                     while (isInputInvalid);
                     inputDifficulty = Integer.parseInt(toBeConvertedInputDifficulty);
 
-                    switch (inputDifficulty){
+                    switch (inputDifficulty) {
                         case 1:
                             System.out.println("\nYou have chosen easy mode!");
                             playAgain = true;
@@ -216,8 +214,7 @@ public class GameComputer {
                             playAgain = true;
                             break;
                     }
-                }
-                else {
+                } else {
                     playAgain = false;
                 }
             }

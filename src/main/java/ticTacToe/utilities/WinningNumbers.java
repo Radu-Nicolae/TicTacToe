@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WinningNumbers {
 
-    public static List<List> winningNumbers(){
+    public static List<List> winningNumbers() {
         List<List> winningNumbers = new ArrayList<List>();
 
         List<Integer> topRow = Arrays.asList(1, 2, 3);

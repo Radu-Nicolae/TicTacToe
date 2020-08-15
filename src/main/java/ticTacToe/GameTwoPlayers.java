@@ -1,6 +1,5 @@
 package ticTacToe;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import ticTacToe.utilities.Board;
 import ticTacToe.utilities.GameUtilities;
 import ticTacToe.utilities.Input;
@@ -19,14 +18,14 @@ public class GameTwoPlayers {
         String player2;
         List<Integer> player1Inputs = new ArrayList<Integer>();
         List<Integer> player2Inputs = new ArrayList<Integer>();
-        List<Boolean> booleans = new ArrayList<Boolean>();
+        List<Boolean> booleans;
         String whoStartsFirst;
         boolean player1Starts;
         boolean isInputInvalid = true;
         int input;
         String inputString;
         boolean isGameNotOver = true;
-        boolean playAgain = true;
+        boolean playAgain;
         char player1Symbol = '0';
         char player2Symbol = '0';
 
@@ -127,11 +126,7 @@ public class GameTwoPlayers {
                 }
             }
             while (isInputInvalid);
-            if (inputString.equalsIgnoreCase("yes")) {
-                playAgain = true;
-            } else {
-                playAgain = false;
-            }
+            playAgain = inputString.equalsIgnoreCase("yes");
 
             board = Board.getBoard();
             player1Inputs.clear();

@@ -8,7 +8,7 @@ public class Game {
 
     static Scanner scn = new Scanner(System.in);
 
-    public static void Game() {
+    public static void playGame() {
         String input;
         boolean isInputIncorrect = true;
 

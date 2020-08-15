@@ -11,26 +11,24 @@ public class Board {
      */
 
     public static char[][] getBoard() {
-        char[][] board = {
+
+        return new char[][]{
                 {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' '},
                 {'-', '-', '-', '+', '-', '-', '-', '+', '-', '-'},
                 {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' '},
                 {'-', '-', '-', '+', '-', '-', '-', '+', '-', '-'},
                 {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' '},
         };
-
-        return board;
     }
 
     public static char[][] getBoardWithNumbers() {
-        char[][] boardWithNumbers = {
+        return new char[][]{
                 {' ', '1', ' ', '|', ' ', '2', ' ', '|', ' ', '3'},
                 {'-', '-', '-', '+', '-', '-', '-', '+', '-', '-'},
                 {' ', '4', ' ', '|', ' ', '5', ' ', '|', ' ', '6'},
                 {'-', '-', '-', '+', '-', '-', '-', '+', '-', '-'},
                 {' ', '7', ' ', '|', ' ', '8', ' ', '|', ' ', '9'},
         };
-        return boardWithNumbers;
     }
 
     public static void printBoard(char[][] board) {

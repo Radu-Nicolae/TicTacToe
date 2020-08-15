@@ -35,8 +35,9 @@ public class GameUtilities {
 
     static Random rnd = new Random();
 
-    public static int easyMode(boolean isInputInvalid, List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
+    public static int easyMode(List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
         int cpuInput;
+        boolean isInputInvalid = true;
         do {
             cpuInput = rnd.nextInt(9) + 1;
             isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
@@ -53,18 +54,16 @@ public class GameUtilities {
     }
 
 
-    public static int mediumMode(boolean isInputInvalid, List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
+    public static int mediumMode(List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
         int cpuInput;
-        isInputInvalid = true;
+        boolean isInputInvalid = true;
 
 
         cpuInput = remainingInput(playerInputs, board);
         isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
 
         if (isInputAvailable) {
-            isInputInvalid = false;
             cpuInputs.add(cpuInput);
-            board = Board.boardReplace(board, playerSymbol, cpuInput);
         } else {
             do {
                 cpuInput = rnd.nextInt(9) + 1;
@@ -84,9 +83,9 @@ public class GameUtilities {
 
     }
 
-    public static int hardMode(boolean isInputInvalid, List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
+    public static int hardMode(List<Integer> playerInputs, List<Integer> cpuInputs, char[][] board, boolean isInputAvailable, char playerSymbol) {
         int cpuInput;
-        isInputInvalid = true;
+        boolean isInputInvalid = true;
 
         List<Integer> corners = new ArrayList<Integer>();
         corners.add(1);
@@ -103,7 +102,6 @@ public class GameUtilities {
             if (playerInputs.get(0) != 5) {
                 cpuInput = 5;
                 cpuInputs.add(cpuInput);
-                board = Board.boardReplace(board, playerSymbol, cpuInput);
             } else {
                 cpuInput = corners.get(rnd.nextInt(4) + 1);
             }
@@ -112,7 +110,6 @@ public class GameUtilities {
         } else if (remainingInput(cpuInputs, board) != 0) { //ToDo watch this carrefully!
             int i = 0;
             do {
-//                cpuInput = rnd.nextInt(9) + 1;
                 cpuInput = remainingInput(cpuInputs, board);
                 isInputAvailable = Input.isInputValid(playerInputs, cpuInputs, cpuInput);
 
@@ -316,8 +313,6 @@ public class GameUtilities {
         }
 
 
-
-
         return cpuInput;
-}
+    }
 }
